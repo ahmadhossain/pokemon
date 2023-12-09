@@ -9,6 +9,14 @@ import { QueryKeys } from "@/Enums";
 import { useSets } from "@/Hooks/reactQuery";
 import Header from "@/component/Header";
 import { Set } from "pokemon-tcg-sdk-typescript/dist/sdk";
+import { useState } from "react";
+import {
+  Button,
+  Dialog,
+  DialogBody,
+  DialogFooter,
+  DialogHeader,
+} from "@material-tailwind/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,12 +37,35 @@ export const getServerSideProps = async (
 };
 
 export default function Home() {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(!open);
+
   const setsObject = useSets();
   console.log(setsObject.data);
 
   return (
-    <div>
-      <Header />
+    <>
+      <Dialog open={open} handler={handleOpen}>
+        <DialogBody>
+          <div className="p-10">
+            The key to more success is to have a lot of pillows. Put it this
+            way, it took me twenty five years to get these plants, twenty five
+            years of blood sweat and tears, and I&apos;m never giving up,
+            I&apos;m just getting started. I&apos;m up to something. Fan luv.
+          </div>
+        </DialogBody>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="green"
+            onClick={handleOpen}
+            className="mr-1"
+          >
+            <span>Add to Cart</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
       <div className="grid grid-cols-3 lg:grid-cols-4 text-center">
         {setsObject.data
           ? setsObject.data.map((set: Set) => (
@@ -53,10 +84,13 @@ export default function Home() {
                 >
                   {set.name}
                 </p>
+                <button className="text-sm text-blue-500" onClick={handleOpen}>
+                  Quick View
+                </button>
               </div>
             ))
           : "Loading..."}
       </div>
-    </div>
+    </>
   );
 }

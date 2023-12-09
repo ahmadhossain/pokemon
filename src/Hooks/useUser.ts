@@ -8,6 +8,6 @@ interface User {
 
 export const useUser = create<User>()((set) => ({
   isLogin: false,
-  login: () => set((state) => ({ isLogin: true })),
-  logout: () => set((state) => ({ isLogin: false })),
+  login: () => set(() => ({ isLogin: true })),
+  logout: () => set(() => ({ isLogin: false })),
 }));

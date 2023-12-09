@@ -18,12 +18,13 @@ const LoginPage = () => {
     if (name === "codecamp" && password === "123") {
       login();
       router.push("/");
+    } else {
+      setIsShow(true);
     }
-    setIsShow(true);
   };
 
   return (
-    <div className="w-full h-screen p-5 flex justify-center items-center">
+    <div className="w-full h-[650px] p-5 flex justify-center items-center">
       <form
         className="w-[25%] border p-8 rounded-lg h-fit shadow-md"
         onSubmit={handleSubmit}
@@ -60,7 +61,7 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button className="w-full py-2 mr-3 border rounded text-sm px-2  bg-sky-400">
+        <button className="w-full py-2 mr-3 border rounded text-sm px-2 bg-blue-400">
           Login
         </button>
         {isShow && <p className="text-red-600 text-center">Wrong!</p>}

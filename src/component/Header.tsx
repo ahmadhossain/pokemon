@@ -4,11 +4,12 @@ import Image from "next/image";
 import { useUser } from "@/Hooks/useUser";
 import logoutImg from "../../public/logout.png";
 import cardImg from "../../public/cart.png";
+import { Button } from "@material-tailwind/react";
 
 const Header = () => {
   const router = useRouter();
   const { isLogin, logout } = useUser();
-
+  const isHide = router.route === "/login";
   return (
     <div className="w-full py-5 px-8 border-b flex justify-end gap-5">
       <button className="text-red-300" onClick={() => router.push("/cart")}>
@@ -24,7 +25,13 @@ const Header = () => {
           </div>
         )}
         {!isLogin && (
-          <button onClick={() => router.push("/login")}>Login</button>
+          <Button
+            variant="gradient"
+            className={isHide ? "hidden" : ""}
+            onClick={() => router.push("/login")}
+          >
+            Login
+          </Button>
         )}
       </>
     </div>
