@@ -1,5 +1,5 @@
 import { QueryKeys } from "@/Enums";
-import { getAllSets } from "@/services/pokemon.services";
+import { getAllSets, getSet } from "@/services/pokemon.services";
 import { Set } from "pokemon-tcg-sdk-typescript/dist/sdk";
 
 import {
@@ -18,6 +18,19 @@ export const useSets = () => {
     },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
+    enabled: true,
+  });
+};
+
+export const useSet = (setId: string) => {
+  return useQuery({
+    queryKey: [QueryKeys.CardSet],
+    queryFn: async () => {
+      const set = await getSet(setId);
+      return set;
+    },
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
     enabled: true,
   });
 };

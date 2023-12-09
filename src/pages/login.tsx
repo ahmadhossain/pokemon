@@ -24,22 +24,22 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="w-full h-[650px] p-5 flex justify-center items-center">
+    <div className="w-full h-[650px] p-5 flex justify-center py-20">
       <form
-        className="w-[25%] border p-8 rounded-lg h-fit shadow-md"
+        className="w-[22%] border border-gray-300 py-8 px-7 rounded-lg h-fit"
         onSubmit={handleSubmit}
       >
         <h1 className="text-start text-2xl text-center font-normal font-lg">
           Login
         </h1>
         <div className="my-2 flex flex-col">
-          <label className="mr-2" htmlFor="name">
+          <label className="text-sm pb-1 mr-2" htmlFor="name">
             Name
           </label>
           <input
             id="name"
             name="name"
-            className="rounded px-2 py-1 border"
+            className="rounded px-2 py-1 border border-gray-300 focus:outline-none"
             placeholder="Name"
             type="text"
             value={name}
@@ -48,20 +48,20 @@ const LoginPage = () => {
         </div>
 
         <div className="my-2 flex flex-col">
-          <label className="mr-12" htmlFor="password">
+          <label className="text-sm pb-1 mr-12" htmlFor="password">
             Password
           </label>
           <input
             id="password"
             name="password"
-            className="rounded px-2 py-1 border"
+            className="rounded px-2 py-1 border border-gray-300 focus:outline-none"
             placeholder="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button className="w-full py-2 mr-3 border rounded text-sm px-2 bg-blue-400">
+        <button className="mt-2 w-full py-2 mr-3 rounded-lg text-sm text-white px-2 bg-blue-400">
           Login
         </button>
         {isShow && <p className="text-red-600 text-center">Wrong!</p>}
