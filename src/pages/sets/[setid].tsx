@@ -52,12 +52,14 @@ const PokemonSet = ({ card }: { card: Set }) => {
   return (
     <>
       {card ? (
-        <div className="text-center max-w-fit border rounded-lg p-5 my-20 mx-auto">
-          <div className="max-w-[200px] mx-auto">
-            <img src={card.images.logo} />
+        <div className="h-[556px] ">
+          <div className="text-center max-w-fit border rounded-lg p-5 my-20 mx-auto">
+            <div className="max-w-[200px] mx-auto">
+              <img src={card.images.logo} />
+            </div>
+            <p>Name: {card.name}</p>
+            <p>Series: {card.series}</p>
           </div>
-          <p>Name: {card.name}</p>
-          <p>Series: {card.series}</p>
         </div>
       ) : (
         <div className="text-center text-2xl">Loading...</div>

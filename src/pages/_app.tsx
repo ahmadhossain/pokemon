@@ -1,3 +1,4 @@
+import Footer from "@/component/Footer";
 import Header from "@/component/Header";
 import "@/styles/globals.css";
 import {
@@ -17,6 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <HydrationBoundary state={pageProps.dehydratedState}>
           <Header />
           <Component {...pageProps}></Component>
+          <Footer />
         </HydrationBoundary>
       </QueryClientProvider>
     </>

@@ -24,9 +24,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="w-full h-[650px] p-5 flex justify-center py-20">
+    <div className="w-full h-[636px] p-5 flex justify-center py-20">
       <form
-        className="w-[22%] border border-gray-300 py-8 px-7 rounded-lg h-fit"
+        className="w-[22%] shadow-md border border-gray-300 py-8 px-7 rounded-lg h-fit"
         onSubmit={handleSubmit}
       >
         <h1 className="text-start text-2xl text-center font-normal font-lg">
@@ -64,7 +64,7 @@ const LoginPage = () => {
         <button className="mt-2 w-full py-2 mr-3 rounded-lg text-sm text-white px-2 bg-blue-400">
           Login
         </button>
-        {isShow && <p className="text-red-600 text-center">Wrong!</p>}
+        {isShow && <p className="pt-2 text-red-600 text-center">Wrong!</p>}
       </form>
     </div>
   );

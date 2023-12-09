@@ -34,19 +34,37 @@ const CardDetails = ({
             </div>
             <div className="text-center">
               <p
-                className="pt-2 text-2xl text-teal-300 font-medium mouse-cursor"
+                className="pt-2 text-2xl text-cyan-800 font-medium mouse-cursor"
                 // onClick={() => {
                 //   mutation.mutate({ setId: id as string, setName: "abc" });
                 // }}
               >
                 {set.name}
               </p>
-              <p>{set.printedTotal}</p>
-              <p>{set.ptcgoCode}</p>
-              <p>{set.releaseDate}</p>
-              <p>{set.series}</p>
-              <p>{set.total}</p>
-              <p>{set.updatedAt}</p>
+              <p>
+                <span className="text-sm text-gray-500">Printed: </span>
+                {set.printedTotal}
+              </p>
+              <p className="text-sm">
+                <span className="text-sm text-gray-500">Code: </span>
+                {set.ptcgoCode}
+              </p>
+              <p className="text-blue-500">
+                <span className="text-blue-300 text-sm">Series: </span>
+                {set.series}
+              </p>
+              <p>
+                <span className="text-gray-500">Total: </span>
+                {set.total}
+              </p>
+              <p className="text-sm">
+                <span className="text-gray-500">Released: </span>
+                {set.releaseDate}
+              </p>
+              <p className="text-sm">
+                <span className="text-gray-500">Updated: </span>
+                {set.updatedAt}
+              </p>
             </div>
           </div>
         )}

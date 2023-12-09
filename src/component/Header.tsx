@@ -13,9 +13,12 @@ const Header = () => {
   const { isLogin, logout } = useUser();
   const isHide = router.route === "/login";
   return (
-    <div className="w-full py-5 px-10 border-b border-gray-300 flex justify-between gap-5">
+    <div className="w-full py-3 bg-gradient-to-b from-cyan-700  to-cyan-900 px-10 flex justify-between gap-5">
       <Link href="/">
-        <Image width={35} src={logo} alt="Cart Image" />
+        <div className="flex gap-3">
+          <span className="text-2xl text-white font-[500]">Pokemon</span>
+          <Image width={35} src={logo} alt="Cart Image" />
+        </div>
       </Link>
       <div className="flex gap-8">
         <Link href="/cart">

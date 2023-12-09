@@ -26,7 +26,7 @@ const Card = ({ set }: { set: Set }) => {
           <img className="w-22" src={set.images?.logo} />
         </Link>
         <p
-          className="mouse-cursor"
+          className="pt-3 text-gray-800 mouse-cursor"
           // onClick={() => {
           //   mutation.mutate({ setId: id as string, setName: "abc" });
           // }}
