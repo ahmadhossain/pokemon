@@ -1,4 +1,5 @@
 import { useUser } from "@/Hooks/useUser";
+import Header from "@/component/Header";
 import { useRouter } from "next/router";
 import React, { FormEvent, useState } from "react";
 

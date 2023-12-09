@@ -1,4 +1,5 @@
 import { useSet } from "@/Hooks/reactQuery";
+import { useCart } from "@/Hooks/useCart";
 import {
   Button,
   Dialog,
@@ -7,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import Link from "next/link";
 import { config } from "process";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const CardDetails = ({
   open,
@@ -18,11 +19,24 @@ const CardDetails = ({
   handleOpen: () => void;
   setId: string | undefined;
 }) => {
+  //   const [newSet, setNewSet] = useState();
   const setObject = useSet(setId as string);
   const set = setObject.data;
 
-  console.log(set, "set");
-  console.log(setId, "setID");
+  //   useEffect(() => {
+  //     set && setNewSet(set);
+  //   }, [set]);
+
+  //   console.log(set, "set");
+  //   console.log(setId, "setID");
+
+  const { addItem, cart } = useCart();
+
+  const handleClick = () => {
+    set && addItem(set);
+    handleOpen();
+  };
+  console.log(cart);
 
   return (
     <Dialog open={open} handler={handleOpen}>
@@ -73,7 +87,7 @@ const CardDetails = ({
         <Button
           variant="text"
           color="green"
-          onClick={handleOpen}
+          onClick={handleClick}
           className="mr-1"
         >
           <span>Add to Cart</span>

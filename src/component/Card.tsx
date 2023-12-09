@@ -13,6 +13,7 @@ const Card = ({ set }: { set: Set }) => {
     setOpen(!open);
     setSetId(id);
   };
+
   return (
     <>
       {open && (

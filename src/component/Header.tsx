@@ -7,11 +7,14 @@ import logoutImg from "../../public/logout.png";
 import cardImg from "../../public/cart.png";
 import logo from "../../public/logo.png";
 import Link from "next/link";
+import { useCart } from "@/Hooks/useCart";
 
 const Header = () => {
   const router = useRouter();
   const { isLogin, logout } = useUser();
+  const { count } = useCart();
   const isHide = router.route === "/login";
+
   return (
     <div className="w-full py-3 bg-gradient-to-b from-cyan-700  to-cyan-900 px-10 flex justify-between gap-5">
       <Link href="/">
@@ -22,7 +25,12 @@ const Header = () => {
       </Link>
       <div className="flex gap-8">
         <Link href="/cart">
-          <Image width={30} src={cardImg} alt="Cart Image" />
+          <div className="flex relative">
+            <Image width={30} src={cardImg} alt="Cart Image" />
+            <p className="absolute right-0 -m-2 font-semibold text-red-300">
+              {count > 0 && count}
+            </p>
+          </div>
         </Link>
         <>
           {isLogin && (
