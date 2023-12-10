@@ -1,3 +1,4 @@
+import { useSets, useUpdateSetName } from "@/Hooks/reactQuery";
 import {
   Button,
   Dialog,
@@ -9,16 +10,27 @@ import { FormEvent, useState } from "react";
 const EditName = ({
   open,
   handleOpen,
+  setId,
 }: {
   open: boolean;
   handleOpen: () => void;
+  setId: string;
 }) => {
   const [name, setName] = useState("");
   const [isShow, setIsShow] = useState(false);
+  const setsObject = useSets();
+  const sets = setsObject.data;
+  console.log(setsObject.data);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const mutation = useUpdateSetName(sets);
+
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     name.length === 0 && setIsShow(true);
+    if (name.length > 0) {
+      mutation.mutate({ setId: setId as string, setName: name });
+      handleOpen();
+    }
     console.log("Name " + name);
   };
 
@@ -61,7 +73,7 @@ const EditName = ({
         <Button
           variant="text"
           color="green"
-          onClick={handleOpen}
+          onClick={handleSubmit}
           className="mr-1"
         >
           <span>Confirm</span>

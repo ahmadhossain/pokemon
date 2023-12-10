@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Set } from "pokemon-tcg-sdk-typescript/dist/sdk";
 
 import edit from "../../../public/edit.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditName from "@/component/EditName";
 import { Button } from "@material-tailwind/react";
 import { useCart } from "@/Hooks/useCart";
@@ -29,7 +29,6 @@ export const getStaticPaths: GetStaticPaths = async (qry) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  // console.log(typeof context.params?.setid, "Type, Inside getStaticProps");
   let card = {};
   try {
     const id = context.params?.setid as string;
@@ -49,9 +48,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
     revalidate: 10,
   };
 };
+
 const PokemonSet = ({ card }: { card: Set }) => {
   const [open, setOpen] = useState(false);
   const { addItem } = useCart();
+
   const handleOpen = () => setOpen(!open);
 
   let err = false;
@@ -65,7 +66,7 @@ const PokemonSet = ({ card }: { card: Set }) => {
     );
   return (
     <>
-      {open && <EditName open={open} handleOpen={handleOpen} />}
+      {open && <EditName setId={card.id} open={open} handleOpen={handleOpen} />}
       {card ? (
         <div className="h-[556px]">
           <div className="text-center max-w-fit border border-gray-400 rounded-lg py-7 px-6 my-20 mx-auto">

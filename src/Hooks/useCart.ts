@@ -5,7 +5,6 @@ interface Cart {
   cart: Set[];
   addItem: (data: Set) => void;
   deleteItem: (id: string) => void;
-  //   getAllItems: () => void;
 }
 
 export const useCart = create<Cart>()((set, get) => ({
@@ -18,5 +17,4 @@ export const useCart = create<Cart>()((set, get) => ({
     set((state) => ({
       cart: state.cart.filter((el) => id !== el.id),
     })),
-  //   getAllItems: () => get((state) => ({state})),
 }));
