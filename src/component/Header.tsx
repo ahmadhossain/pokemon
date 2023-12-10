@@ -12,7 +12,7 @@ import { useCart } from "@/Hooks/useCart";
 const Header = () => {
   const router = useRouter();
   const { isLogin, logout } = useUser();
-  const { count } = useCart();
+  const { cart } = useCart();
   const isHide = router.route === "/login";
 
   return (
@@ -28,7 +28,7 @@ const Header = () => {
           <div className="flex relative">
             <Image width={30} src={cardImg} alt="Cart Image" />
             <p className="absolute right-0 -m-2 font-semibold text-red-300">
-              {count > 0 && count}
+              {cart.length > 0 && cart.length}
             </p>
           </div>
         </Link>

@@ -6,8 +6,6 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import Link from "next/link";
-import { config } from "process";
 import React, { useEffect, useState } from "react";
 
 const CardDetails = ({
@@ -23,18 +21,10 @@ const CardDetails = ({
   const setObject = useSet(setId as string);
   const set = setObject.data;
 
-  //   useEffect(() => {
-  //     set && setNewSet(set);
-  //   }, [set]);
-
-  //   console.log(set, "set");
-  //   console.log(setId, "setID");
-
   const { addItem, cart } = useCart();
 
   const handleClick = () => {
     set && addItem(set);
-    handleOpen();
   };
   console.log(cart);
 
@@ -84,6 +74,14 @@ const CardDetails = ({
         )}
       </DialogBody>
       <DialogFooter>
+        <Button
+          variant="text"
+          color="red"
+          onClick={handleOpen}
+          className="mr-1"
+        >
+          <span>Close</span>
+        </Button>
         <Button
           variant="text"
           color="green"
