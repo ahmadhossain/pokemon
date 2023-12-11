@@ -24,24 +24,21 @@ const Card = ({ set }: { set: Set }) => {
         className="border border-gray-400 w-fit  md:w-60 rounded-lg p-[10%]  m-[10%]"
       >
         <Link href={`/sets/${set.id}`}>
-          <img className="w-22" src={set.images?.logo} />
+          <div>
+            <img className="w-22" src={set.images?.logo} />
+          </div>
         </Link>
-        <p
-          className="pt-3 text-gray-800 mouse-cursor"
-          // onClick={() => {
-          //   mutation.mutate({ setId: id as string, setName: "abc" });
-          // }}
-        >
-          {set.name}
-        </p>
-        <button
-          className="text-sm text-blue-500"
-          onClick={() => {
-            handleClick(set.id);
-          }}
-        >
-          Quick View
-        </button>
+        <div className="flex flex-col content-between">
+          <p className="pt-3 text-gray-800 mouse-cursor">{set.name}</p>
+          <button
+            className="text-sm text-blue-500"
+            onClick={() => {
+              handleClick(set.id);
+            }}
+          >
+            Quick View
+          </button>
+        </div>
       </div>
     </>
   );

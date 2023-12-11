@@ -30,11 +30,15 @@ export const getServerSideProps = async (
 export default function Home() {
   const setsObject = useSets();
   const sets = setsObject.data;
+
+  sets?.sort((a, b) =>
+    a.updatedAt > b.updatedAt ? -1 : b.updatedAt > a.updatedAt ? 1 : 0
+  );
   console.log(setsObject.data);
 
   return (
     <>
-      <div className="grid grid-cols-3 lg:grid-cols-4 text-center">
+      <div className="grid grid-cols-3 justify-items-center lg:grid-cols-4 text-center">
         {sets
           ? sets.map((set: Set) => <Card key={set.id} set={set} />)
           : "Loading..."}
