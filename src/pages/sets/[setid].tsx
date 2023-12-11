@@ -78,7 +78,7 @@ const PokemonSet = ({ card }: { card: Set }) => {
               <img src={card.images.logo} />
             </div>
             <div className="p-3 flex justify-center items-center gap-2">
-              <p className="text-cyan-700 text-2xl">{set?.name}</p>
+              <p className="text-cyan-700 text-2xl">{card.name}</p>
               <div onClick={handleOpen} className="cursor-pointer">
                 <Image src={edit} width={18} alt="edit icon" />
               </div>

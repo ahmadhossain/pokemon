@@ -37,12 +37,10 @@ export default function Home() {
   console.log(setsObject.data);
 
   return (
-    <>
-      <div className="grid grid-cols-3 justify-items-center lg:grid-cols-4 text-center">
-        {sets
-          ? sets.map((set: Set) => <Card key={set.id} set={set} />)
-          : "Loading..."}
-      </div>
-    </>
+    <div className="grid grid-cols-3 min-h-[calc(100vh-103px)] justify-items-center lg:grid-cols-4 text-center">
+      {sets
+        ? sets.map((set: Set) => <Card key={set.id} set={set} />)
+        : "Loading..."}
+    </div>
   );
 }
