@@ -35,23 +35,30 @@ export const useSet = (setId: string) => {
   });
 };
 
-export const useUpdateSetName = (initialSets?: Set[]) => {
+export const useUpdateSetName = (initialSet?: Set) => {
   const queryClient = useQueryClient();
-  queryClient.invalidateQueries({ queryKey: [QueryKeys.CardSets] });
+  // queryClient.invalidateQueries({ queryKey: [QueryKeys.CardSets] });
 
   return useMutation({
     mutationFn: ({ setId, setName }: { setId: string; setName: string }) =>
       editSetName(setId, setName),
     onSuccess: (params, variables) => {
       console.log("Successful");
-      if (initialSets) {
-        queryClient.setQueryData([QueryKeys.CardSets], () => {
-          let foundset = initialSets?.find((set) => set.id === variables.setId);
-          if (foundset) {
-            foundset.name = variables.setName;
+      if (initialSet) {
+        // queryClient.setQueryData([QueryKeys.CardSets], () => {
+        //   let foundset = initialSets?.find((set) => set.id === variables.setId);
+        //   if (foundset) {
+        //     foundset.name = variables.setName;
+        //   }
+        //   console.log(initialSets);
+        //   return [...initialSets];
+        // });
+        queryClient.setQueryData([QueryKeys.CardSet], (oldSet: Set) => {
+          const newData = structuredClone(oldSet);
+          if (newData !== null) {
+            newData.name = variables.setName;
           }
-          console.log(initialSets);
-          return [...initialSets];
+          return newData;
         });
       }
     },
@@ -60,3 +67,39 @@ export const useUpdateSetName = (initialSets?: Set[]) => {
     },
   });
 };
+
+// export const useUpdateSetName = (initialSets?: Set[]) => {
+//   const queryClient = useQueryClient();
+//   // queryClient.invalidateQueries({ queryKey: [QueryKeys.CardSets] });
+
+//   return useMutation({
+//     mutationFn: ({ setId, setName }: { setId: string; setName: string }) =>
+//       editSetName(setId, setName),
+//     onSuccess: (params, variables) => {
+//       console.log("Successful");
+//       if (initialSets) {
+//         // queryClient.setQueryData([QueryKeys.CardSets], () => {
+//         //   let foundset = initialSets?.find((set) => set.id === variables.setId);
+//         //   if (foundset) {
+//         //     foundset.name = variables.setName;
+//         //   }
+//         //   console.log(initialSets);
+//         //   return [...initialSets];
+//         // });
+//         queryClient.setQueryData([QueryKeys.CardSets], (oldData: Set[]) => {
+//           const newData = structuredClone(oldData);
+//           const objIndex = oldData.findIndex(
+//             (item) => item.id === variables.setId
+//           );
+//           if (objIndex != -1) {
+//             newData[objIndex].name = variables.setName;
+//           }
+//           return newData;
+//         });
+//       }
+//     },
+//     onError: (err) => {
+//       console.log(err);
+//     },
+//   });
+// };

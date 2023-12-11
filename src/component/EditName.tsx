@@ -1,10 +1,11 @@
-import { useSets, useUpdateSetName } from "@/Hooks/reactQuery";
+import { useSet, useSets, useUpdateSetName } from "@/Hooks/reactQuery";
 import {
   Button,
   Dialog,
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
+import card from "@material-tailwind/react/theme/components/card";
 import { FormEvent, useState } from "react";
 
 const EditName = ({
@@ -18,11 +19,11 @@ const EditName = ({
 }) => {
   const [name, setName] = useState("");
   const [isShow, setIsShow] = useState(false);
-  const setsObject = useSets();
-  const sets = setsObject.data;
-  console.log(setsObject.data);
+  const setObject = useSet(setId);
+  const set = setObject.data;
+  console.log(setObject.data);
 
-  const mutation = useUpdateSetName(sets);
+  const mutation = useUpdateSetName(set);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();

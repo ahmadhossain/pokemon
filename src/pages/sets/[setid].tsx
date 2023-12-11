@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import EditName from "@/component/EditName";
 import { Button } from "@material-tailwind/react";
 import { useCart } from "@/Hooks/useCart";
+import { useSet, useSets } from "@/Hooks/reactQuery";
 
 export const getStaticPaths: GetStaticPaths = async (qry) => {
   const sets = await getAllSets();
@@ -52,6 +53,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
 const PokemonSet = ({ card }: { card: Set }) => {
   const [open, setOpen] = useState(false);
   const { addItem } = useCart();
+  const setObject = useSet(card.id);
+  const set = setObject.data;
+  console.log(setObject);
 
   const handleOpen = () => setOpen(!open);
 
@@ -74,7 +78,7 @@ const PokemonSet = ({ card }: { card: Set }) => {
               <img src={card.images.logo} />
             </div>
             <div className="p-3 flex justify-center items-center gap-2">
-              <p className="text-cyan-700 text-2xl">{card.name}</p>
+              <p className="text-cyan-700 text-2xl">{set?.name}</p>
               <div onClick={handleOpen} className="cursor-pointer">
                 <Image src={edit} width={18} alt="edit icon" />
               </div>
