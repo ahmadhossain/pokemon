@@ -1,20 +1,6 @@
 import { ILegality, Set, SetImage } from "pokemon-tcg-sdk-typescript/dist/sdk";
 import { create } from "zustand";
 
-export interface ISet {
-  id: string;
-  name: string;
-  series: string;
-  printedTotal: number;
-  total: number;
-  legalities: ILegality;
-  ptcgoCode: string;
-  releaseDate: string;
-  updatedAt: string;
-  images: SetImage;
-  count: number;
-}
-
 interface Cart {
   cart: Set[];
   addItem: (data: Set) => void;

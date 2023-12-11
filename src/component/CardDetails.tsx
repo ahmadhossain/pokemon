@@ -29,20 +29,15 @@ const CardDetails = ({
   console.log(cart);
 
   return (
-    <Dialog open={open} handler={handleOpen}>
+    <Dialog size="sm" open={open} handler={handleOpen}>
       <DialogBody>
         {set && (
-          <div key={set.id} className="py-5">
+          <div key={set.id} className="">
             <div className="flex justify-center">
-              <img className="w-[60%]" src={set.images?.logo} />
+              <img className="w-[50%]" src={set.images?.logo} />
             </div>
             <div className="text-center">
-              <p
-                className="pt-2 text-2xl text-cyan-800 font-medium mouse-cursor"
-                // onClick={() => {
-                //   mutation.mutate({ setId: id as string, setName: "abc" });
-                // }}
-              >
+              <p className="pt-2 text-2xl text-cyan-800 font-medium mouse-cursor">
                 {set.name}
               </p>
               <p>
