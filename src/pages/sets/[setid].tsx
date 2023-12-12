@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 const PokemonSet = ({ card }: { card: Set }) => {
   const [open, setOpen] = useState(false);
   const { addItem } = useCart();
-  const setObject = useSet(card.id);
+  const setObject = useSet(card?.id);
   const set = setObject.data;
   console.log(setObject);
 
