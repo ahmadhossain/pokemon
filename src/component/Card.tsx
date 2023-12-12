@@ -19,27 +19,29 @@ const Card = ({ set }: { set: Set }) => {
       {open && (
         <CardDetails open={open} handleOpen={handleOpen} setId={setId} />
       )}
-      <div
-        key={set.id}
-        className="border border-gray-400 w-fit  md:w-60 rounded-lg p-[10%]  m-[10%]"
-      >
-        <Link href={`/sets/${set.id}`}>
-          <div>
-            <img className="w-22" src={set.images?.logo} />
+      {set && (
+        <div
+          key={set.id}
+          className="border border-gray-400 w-fit  md:w-60 rounded-lg p-[10%]  m-[10%]"
+        >
+          <Link href={`/sets/${set.id}`}>
+            <div>
+              <img className="w-22" src={set.images?.logo} />
+            </div>
+          </Link>
+          <div className="flex flex-col content-between">
+            <p className="pt-3 text-gray-800 mouse-cursor">{set.name}</p>
+            <button
+              className="text-sm text-blue-500"
+              onClick={() => {
+                handleClick(set.id);
+              }}
+            >
+              Quick View
+            </button>
           </div>
-        </Link>
-        <div className="flex flex-col content-between">
-          <p className="pt-3 text-gray-800 mouse-cursor">{set.name}</p>
-          <button
-            className="text-sm text-blue-500"
-            onClick={() => {
-              handleClick(set.id);
-            }}
-          >
-            Quick View
-          </button>
         </div>
-      </div>
+      )}
     </>
   );
 };
