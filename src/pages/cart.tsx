@@ -20,7 +20,10 @@ const CartPage = () => {
   }, []);
 
   useEffect(() => {
-    if (cart.length !== 0) localStorage.setItem("cart", JSON.stringify(cart));
+    if (cart.length !== 0) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+      setCartObject(cart);
+    }
   }, [cart]);
 
   if (cartObject.length === 0)

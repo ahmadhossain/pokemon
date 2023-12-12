@@ -29,7 +29,10 @@ const Header = () => {
   }, [cart]);
 
   useEffect(() => {
-    if (cart.length !== 0) localStorage.setItem("cart", JSON.stringify(cart));
+    if (cart.length !== 0) {
+      setCartObject(cart);
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
   }, [cart]);
 
   return (
