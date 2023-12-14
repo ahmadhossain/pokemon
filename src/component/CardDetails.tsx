@@ -6,7 +6,7 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const CardDetails = ({
   open,
@@ -17,16 +17,14 @@ const CardDetails = ({
   handleOpen: () => void;
   setId: string | undefined;
 }) => {
-  //   const [newSet, setNewSet] = useState();
   const setObject = useSet(setId as string);
   const set = setObject.data;
 
-  const { addItem, cart } = useCart();
+  const { addItem } = useCart();
 
   const handleClick = () => {
     set && addItem(set);
   };
-  console.log(cart);
 
   return (
     <Dialog size="sm" open={open} handler={handleOpen}>

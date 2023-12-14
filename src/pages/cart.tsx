@@ -6,27 +6,27 @@ import deleteImg from "../../public/delete.png";
 import { useEffect, useState } from "react";
 
 const CartPage = () => {
-  const { cart, deleteItem } = useCart();
-  const [cartObject, setCartObject] = useState(cart);
-  console.log(cart);
+  const { cart, addAll, deleteItem } = useCart();
+  const [cartObject, setCartObject] = useState([]);
+  // console.log(cart);
 
   useEffect(() => {
     const cartData = localStorage.getItem("cart");
-    const cartObj = cartData ? JSON.parse(cartData) : null;
+    const cartObj = cartData ? JSON.parse(cartData) : [];
 
-    if (cartObj) {
-      setCartObject(cartObj);
-    }
+    addAll(cartObj);
   }, []);
 
-  useEffect(() => {
-    if (cart.length !== 0) {
-      localStorage.setItem("cart", JSON.stringify(cart));
-      setCartObject(cart);
-    }
-  }, [cart]);
+  // useEffect(() => {
+  //   if (cartObject.length !== 0) {
+  //     localStorage.setItem("cart", JSON.stringify(cart));
+  //     setCartObject(cartObject);
+  //   }
+  // }, [cart]);
+  // console.log(cartObj.length, "cart obj");
+  console.log(cart, "cart");
 
-  if (cartObject.length === 0)
+  if (cart.length === 0)
     return (
       <p className="h-[556px] text-cyan-400 text-center text-xl mt-20">
         Cart is empty!
@@ -34,20 +34,23 @@ const CartPage = () => {
     );
   return (
     <div className="min-h-[calc(100vh-59px)]">
-      {cartObject?.map((el: Set) => (
-        <div key={el.id} className="flex px-20 py-3 border">
-          <img className="w-14" src={el.images.logo} alt={el.id} />
-          <div className="w-full flex justify-center items-center">
-            <p>{el.name}</p>
+      {cart.length !== 0 &&
+        cart?.map((el: Set) => (
+          <div key={el.id} className="flex px-20 py-3 border">
+            <img className="w-14" src={el.images.logo} alt={el.id} />
+            <div className="w-full flex justify-center items-center">
+              <p>{el.name}</p>
+            </div>
+            <div
+              className="cursor-pointer flex justify-center items-center"
+              onClick={() => {
+                deleteItem(el.id);
+              }}
+            >
+              <Image width={30} src={deleteImg} alt="delete image" />
+            </div>
           </div>
-          <div
-            className="cursor-pointer flex justify-center items-center"
-            onClick={() => deleteItem(el.id)}
-          >
-            <Image width={30} src={deleteImg} alt="delete image" />
-          </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };
