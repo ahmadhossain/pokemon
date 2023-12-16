@@ -15,8 +15,6 @@ const CartPage = () => {
     addAll(cartObj);
   }, []);
 
-  console.log(cart, "cart");
-
   if (cart.length === 0)
     return (
       <p className="h-[556px] text-cyan-400 text-center text-xl mt-20">
@@ -27,7 +25,7 @@ const CartPage = () => {
     <div className="min-h-[calc(100vh-59px)]">
       {cart.length !== 0 &&
         cart?.map((el: Set, index) => (
-          <div key={el.id} className="flex px-20 py-3 border">
+          <div key={el.id + index} className="flex px-20 py-3 border">
             <img className="w-14" src={el.images.logo} alt={el.id} />
             <div className="w-full flex justify-center items-center">
               <p>{el.name}</p>
