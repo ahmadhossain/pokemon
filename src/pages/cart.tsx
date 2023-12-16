@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 
 const CartPage = () => {
   const { cart, addAll, deleteItem } = useCart();
-  const [cartObject, setCartObject] = useState([]);
   // console.log(cart);
 
   useEffect(() => {
@@ -17,13 +16,6 @@ const CartPage = () => {
     addAll(cartObj);
   }, []);
 
-  // useEffect(() => {
-  //   if (cartObject.length !== 0) {
-  //     localStorage.setItem("cart", JSON.stringify(cart));
-  //     setCartObject(cartObject);
-  //   }
-  // }, [cart]);
-  // console.log(cartObj.length, "cart obj");
   console.log(cart, "cart");
 
   if (cart.length === 0)
@@ -35,8 +27,8 @@ const CartPage = () => {
   return (
     <div className="min-h-[calc(100vh-59px)]">
       {cart.length !== 0 &&
-        cart?.map((el: Set) => (
-          <div key={el.id} className="flex px-20 py-3 border">
+        cart?.map((el: Set, index) => (
+          <div key={el.id + index} className="flex px-20 py-3 border">
             <img className="w-14" src={el.images.logo} alt={el.id} />
             <div className="w-full flex justify-center items-center">
               <p>{el.name}</p>
@@ -44,7 +36,7 @@ const CartPage = () => {
             <div
               className="cursor-pointer flex justify-center items-center"
               onClick={() => {
-                deleteItem(el.id);
+                deleteItem(el.id, index);
               }}
             >
               <Image width={30} src={deleteImg} alt="delete image" />

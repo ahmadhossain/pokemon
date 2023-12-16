@@ -1,10 +1,10 @@
-import { ILegality, Set, SetImage } from "pokemon-tcg-sdk-typescript/dist/sdk";
+import { Set } from "pokemon-tcg-sdk-typescript/dist/sdk";
 import { create } from "zustand";
 
 interface Cart {
   cart: Set[];
   addItem: (data: Set) => void;
-  deleteItem: (id: string) => void;
+  deleteItem: (id: string, indx: number) => void;
   addAll: (data: Set[]) => void;
 }
 
@@ -16,11 +16,11 @@ export const useCart = create<Cart>()((set, get) => ({
     })),
       localStorage.setItem("cart", JSON.stringify(get().cart));
   },
-  deleteItem: (id) => {
+  deleteItem: (id, indx) => {
     set((state) => ({
-      cart: state.cart.filter((el) => id !== el.id),
-    })),
-      localStorage.setItem("cart", JSON.stringify(get().cart));
+      cart: state.cart.filter((set, index) => id !== set.id || index !== indx),
+    }));
+    localStorage.setItem("cart", JSON.stringify(get().cart));
   },
   addAll: (sets: Set[]) =>
     set((state) => ({
