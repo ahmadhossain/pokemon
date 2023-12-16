@@ -1,7 +1,6 @@
-import { useUser } from "@/Hooks/useUser";
-import Header from "@/component/Header";
-import { useRouter } from "next/router";
 import React, { FormEvent, useState } from "react";
+import { useUser } from "@/Hooks/useUser";
+import { useRouter } from "next/router";
 
 const LoginPage = () => {
   const [name, setName] = useState("");
@@ -25,7 +24,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="w-full h-[636px] p-5 flex justify-center py-20">
+    <div className="w-full h-[calc(100vh-104px)] p-5 flex justify-center py-20">
       <form
         className="w-[22%] shadow-md border border-gray-300 py-8 px-7 rounded-lg h-fit"
         onSubmit={handleSubmit}

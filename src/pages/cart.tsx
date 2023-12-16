@@ -17,7 +17,7 @@ const CartPage = () => {
 
   if (cart.length === 0)
     return (
-      <p className="h-[556px] text-cyan-400 text-center text-xl mt-20">
+      <p className="h-[calc(100vh-184px)] text-cyan-400 text-center text-xl mt-20">
         Cart is empty!
       </p>
     );

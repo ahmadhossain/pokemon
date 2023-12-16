@@ -11,19 +11,10 @@ interface Cart {
 export const useCart = create<Cart>()((set, get) => ({
   cart: [],
   addItem: (data: Set) => {
-    const cart = get().cart;
-    const i = cart.findIndex((el) => el.id === data.id);
-    if (i === -1) {
-      set((state) => ({
-        cart: [...state.cart, { ...data, count: 0 }],
-      }));
-    } else {
-      const card = cart.find((el) => el.id === data.id) as Set;
-      set((state) => ({
-        cart: [...state.cart, { ...card, count: 0 }],
-      })),
-        localStorage.setItem("cart", JSON.stringify(get().cart));
-    }
+    set((state) => ({
+      cart: [...state.cart, data],
+    })),
+      localStorage.setItem("cart", JSON.stringify(get().cart));
   },
   deleteItem: (id, indx) => {
     set((state) => ({

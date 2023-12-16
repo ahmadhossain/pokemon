@@ -1,12 +1,14 @@
-import { useSet } from "@/Hooks/reactQuery";
-import { useCart } from "@/Hooks/useCart";
+import React from "react";
+import Image from "next/image";
 import {
   Button,
   Dialog,
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import React from "react";
+
+import { useCart } from "@/Hooks/useCart";
+import { useSet } from "@/Hooks/reactQuery";
 
 const CardDetails = ({
   open,
@@ -32,7 +34,11 @@ const CardDetails = ({
         {set && (
           <div key={set.id} className="">
             <div className="flex justify-center">
-              <img className="w-[50%]" src={set.images?.logo} />
+              <Image
+                className="w-[50%]"
+                src={set.images?.logo}
+                alt={set.name}
+              />
             </div>
             <div className="text-center">
               <p className="pt-2 text-2xl text-cyan-800 font-medium mouse-cursor">

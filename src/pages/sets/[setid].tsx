@@ -1,14 +1,14 @@
-import { getAllSets, getSet } from "@/services/pokemon.services";
+import { useState } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { Set } from "pokemon-tcg-sdk-typescript/dist/sdk";
-
-import edit from "../../../public/edit.png";
-import { useEffect, useState } from "react";
-import EditName from "@/component/EditName";
 import { Button } from "@material-tailwind/react";
+
+import { getAllSets, getSet } from "@/services/pokemon.services";
+import edit from "../../../public/edit.png";
+import EditName from "@/component/EditName";
 import { useCart } from "@/Hooks/useCart";
-import { useSet, useSets } from "@/Hooks/reactQuery";
+import { useSet } from "@/Hooks/reactQuery";
 
 export const getStaticPaths: GetStaticPaths = async (qry) => {
   const sets = await getAllSets();
@@ -40,7 +40,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
         props: { card: {} },
         revalidate: 10,
       };
-      // console.log(card, "card");
     }
   }
 
@@ -55,7 +54,8 @@ const PokemonSet = ({ card }: { card: Set }) => {
   const { addItem } = useCart();
   const setObject = useSet(card?.id);
   const set = setObject.data;
-  console.log(setObject);
+
+  console.log(set, "set");
 
   const handleOpen = () => setOpen(!open);
 
@@ -70,26 +70,32 @@ const PokemonSet = ({ card }: { card: Set }) => {
     );
   return (
     <>
-      {open && <EditName setId={card.id} open={open} handleOpen={handleOpen} />}
-      {card ? (
-        <div className="h-[556px]">
+      {open && (
+        <EditName
+          setId={set?.id as string}
+          open={open}
+          handleOpen={handleOpen}
+        />
+      )}
+      {set ? (
+        <div className="h-[calc(100vh-184px)]">
           <div className="text-center max-w-fit border border-gray-400 rounded-lg py-7 px-6 my-20 mx-auto">
             <div className="max-w-[200px] mx-auto">
-              <img src={card.images.logo} />
+              <Image src={set.images.logo} alt={set.name} />
             </div>
             <div className="p-3 flex justify-center items-center gap-2">
-              <p className="text-cyan-700 text-2xl">{card.name}</p>
+              <p className="text-cyan-700 text-2xl">{set.name}</p>
               <div onClick={handleOpen} className="cursor-pointer">
                 <Image src={edit} width={18} alt="edit icon" />
               </div>
             </div>
             <p className="text-sm">
-              <span className="text-gray-600">Series:</span> {card.series}
+              <span className="text-gray-600">Series:</span> {set.series}
             </p>
             <Button
               variant="text"
               color="green"
-              onClick={() => addItem(card)}
+              onClick={() => addItem(set)}
               className="mt-1"
             >
               <span>Add to Cart</span>
@@ -97,7 +103,9 @@ const PokemonSet = ({ card }: { card: Set }) => {
           </div>
         </div>
       ) : (
-        <div className="text-center text-2xl">Loading...</div>
+        <div className="h-[calc(100vh-59px)] text-center text-cyan-400 text-2xl mt-20">
+          Loading...
+        </div>
       )}
     </>
   );
