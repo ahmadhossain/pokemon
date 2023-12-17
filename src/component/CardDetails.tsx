@@ -35,7 +35,8 @@ const CardDetails = ({
           <div key={set.id} className="">
             <div className="flex justify-center">
               <Image
-                className="w-[50%]"
+                width={100}
+                height={100}
                 src={set.images?.logo}
                 alt={set.name}
               />

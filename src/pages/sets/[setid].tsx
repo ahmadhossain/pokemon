@@ -52,8 +52,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
 const PokemonSet = ({ card }: { card: Set }) => {
   const [open, setOpen] = useState(false);
   const { addItem } = useCart();
-  const setObject = useSet(card?.id);
-  const set = setObject.data;
+
+  let setObject;
+  if (card?.id) {
+    setObject = useSet(card.id as string);
+  }
+
+  const set = setObject?.data;
 
   console.log(set, "set");
 
@@ -81,7 +86,12 @@ const PokemonSet = ({ card }: { card: Set }) => {
         <div className="h-[calc(100vh-184px)]">
           <div className="text-center max-w-fit border border-gray-400 rounded-lg py-7 px-6 my-20 mx-auto">
             <div className="max-w-[200px] mx-auto">
-              <Image src={set.images.logo} alt={set.name} />
+              <Image
+                width={200}
+                height={100}
+                src={set.images.logo}
+                alt={set.name}
+              />
             </div>
             <div className="p-3 flex justify-center items-center gap-2">
               <p className="text-cyan-700 text-2xl">{set.name}</p>

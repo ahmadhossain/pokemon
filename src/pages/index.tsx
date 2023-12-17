@@ -14,7 +14,13 @@ const inter = Inter({ subsets: ["latin"] });
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ): Promise<{ props: { dehydratedState: DehydratedState } }> => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 12 * 60 * 60 * 1000,
+      },
+    },
+  });
 
   await queryClient.prefetchQuery({
     queryKey: [QueryKeys.CardSets],

@@ -2,12 +2,7 @@ import { QueryKeys } from "@/Enums";
 import { editSetName, getAllSets, getSet } from "@/services/pokemon.services";
 import { Set } from "pokemon-tcg-sdk-typescript/dist/sdk";
 
-import {
-  QueryClient,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useSets = () => {
   return useQuery({
@@ -37,7 +32,6 @@ export const useSet = (setId: string) => {
 
 export const useUpdateSetName = (initialSet?: Set) => {
   const queryClient = useQueryClient();
-  // queryClient.invalidateQueries({ queryKey: [QueryKeys.CardSets] });
 
   return useMutation({
     mutationFn: ({ setId, setName }: { setId: string; setName: string }) =>
@@ -45,14 +39,6 @@ export const useUpdateSetName = (initialSet?: Set) => {
     onSuccess: (params, variables) => {
       console.log("Successful");
       if (initialSet) {
-        // queryClient.setQueryData([QueryKeys.CardSets], () => {
-        //   let foundset = initialSets?.find((set) => set.id === variables.setId);
-        //   if (foundset) {
-        //     foundset.name = variables.setName;
-        //   }
-        //   console.log(initialSets);
-        //   return [...initialSets];
-        // });
         queryClient.setQueryData([QueryKeys.CardSet], (oldSet: Set) => {
           const newData = structuredClone(oldSet);
           if (newData !== null) {
@@ -67,39 +53,3 @@ export const useUpdateSetName = (initialSet?: Set) => {
     },
   });
 };
-
-// export const useUpdateSetName = (initialSets?: Set[]) => {
-//   const queryClient = useQueryClient();
-//   // queryClient.invalidateQueries({ queryKey: [QueryKeys.CardSets] });
-
-//   return useMutation({
-//     mutationFn: ({ setId, setName }: { setId: string; setName: string }) =>
-//       editSetName(setId, setName),
-//     onSuccess: (params, variables) => {
-//       console.log("Successful");
-//       if (initialSets) {
-//         // queryClient.setQueryData([QueryKeys.CardSets], () => {
-//         //   let foundset = initialSets?.find((set) => set.id === variables.setId);
-//         //   if (foundset) {
-//         //     foundset.name = variables.setName;
-//         //   }
-//         //   console.log(initialSets);
-//         //   return [...initialSets];
-//         // });
-//         queryClient.setQueryData([QueryKeys.CardSets], (oldData: Set[]) => {
-//           const newData = structuredClone(oldData);
-//           const objIndex = oldData.findIndex(
-//             (item) => item.id === variables.setId
-//           );
-//           if (objIndex != -1) {
-//             newData[objIndex].name = variables.setName;
-//           }
-//           return newData;
-//         });
-//       }
-//     },
-//     onError: (err) => {
-//       console.log(err);
-//     },
-//   });
-// };
