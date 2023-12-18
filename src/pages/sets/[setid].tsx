@@ -12,6 +12,7 @@ import { useSet } from "@/Hooks/reactQuery";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { QueryKeys } from "@/Enums";
 import { useRouter } from "next/router";
+import { notFound } from "next/navigation";
 
 export const getStaticPaths: GetStaticPaths = async (qry) => {
   const sets = await getAllSets();
@@ -33,7 +34,13 @@ export const getStaticPaths: GetStaticPaths = async (qry) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 60 * 60 * 1000,
+      },
+    },
+  });
   const id = context.params?.setid as string;
 
   await queryClient.prefetchQuery({
@@ -42,30 +49,37 @@ export const getStaticProps: GetStaticProps = async (context) => {
       let card = {};
       try {
         card = await getSet(id);
-      } catch (err) {}
-      return card;
+        return card;
+      } catch (err) {
+        return {
+          card,
+        };
+      }
     },
   });
 
   return { props: { dehydratedState: dehydrate(queryClient) } };
 };
 
-const PokemonSet = () => {
+const PokemonSet = (props: any) => {
   const [open, setOpen] = useState(false);
   const { addItem } = useCart();
 
   const router = useRouter();
   const id = router.query?.setid as string;
+  console.log(props, "props");
+  console.log(id, "id");
 
   const setObject = useSet(id);
 
   const set = setObject?.data;
 
   console.log(set, "set");
+  console.log(setObject, "setObject");
 
   const handleOpen = () => setOpen(!open);
 
-  if (set && Array.isArray(set))
+  if (Array.isArray(set))
     return (
       <p className="h-[556px] text-cyan-400 text-center text-xl mt-20">
         Card not found!
@@ -80,7 +94,7 @@ const PokemonSet = () => {
           handleOpen={handleOpen}
         />
       )}
-      {set ? (
+      {set?.id ? (
         <div className="h-[calc(100vh-184px)]">
           <div className="text-center max-w-fit border border-gray-400 rounded-lg py-7 px-6 my-20 mx-auto">
             <div className="max-w-[200px] mx-auto">
