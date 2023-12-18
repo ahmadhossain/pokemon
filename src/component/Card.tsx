@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Set } from "pokemon-tcg-sdk-typescript/dist/sdk";
 import React, { useState } from "react";
 import CardDetails from "./CardDetails";
+import Image from "next/image";
 
 const Card = ({ set }: { set: Set }) => {
   const [open, setOpen] = useState(false);
@@ -26,7 +27,12 @@ const Card = ({ set }: { set: Set }) => {
         >
           <Link href={`/sets/${set.id}`}>
             <div>
-              <img className="w-22" src={set.images?.logo} />
+              <Image
+                width={200}
+                height={100}
+                src={set.images?.logo}
+                alt={set.name}
+              />
             </div>
           </Link>
           <div className="flex flex-col content-between">

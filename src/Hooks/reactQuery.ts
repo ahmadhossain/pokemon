@@ -19,8 +19,11 @@ export const useSets = () => {
 
 export const useSet = (setId: string) => {
   return useQuery({
-    queryKey: [QueryKeys.CardSet],
+    queryKey: [QueryKeys.CardSet, setId],
     queryFn: async () => {
+      if (!setId) {
+        return;
+      }
       const set = await getSet(setId);
       return set;
     },

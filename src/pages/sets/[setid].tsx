@@ -44,30 +44,24 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params?.setid as string;
 
   await queryClient.prefetchQuery({
-    queryKey: [QueryKeys.CardSet],
+    queryKey: [QueryKeys.CardSet, id],
     queryFn: async () => {
-      let card = {};
       try {
-        card = await getSet(id);
+        const card = await getSet(id);
         return card;
-      } catch (err) {
-        return {
-          card,
-        };
-      }
+      } catch (err) {}
     },
   });
 
   return { props: { dehydratedState: dehydrate(queryClient) } };
 };
 
-const PokemonSet = (props: any) => {
+const PokemonSet = () => {
   const [open, setOpen] = useState(false);
   const { addItem } = useCart();
 
   const router = useRouter();
   const id = router.query?.setid as string;
-  console.log(props, "props");
   console.log(id, "id");
 
   const setObject = useSet(id);
@@ -79,7 +73,7 @@ const PokemonSet = (props: any) => {
 
   const handleOpen = () => setOpen(!open);
 
-  if (Array.isArray(set))
+  if (setObject.isError)
     return (
       <p className="h-[556px] text-cyan-400 text-center text-xl mt-20">
         Card not found!

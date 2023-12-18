@@ -17,7 +17,7 @@ export const getServerSideProps = async (
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 12 * 60 * 60 * 1000,
+        staleTime: 6 * 60 * 60 * 1000,
       },
     },
   });
