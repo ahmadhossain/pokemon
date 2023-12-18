@@ -38,7 +38,7 @@ export default function Home() {
   const sets = setsObject.data;
 
   sets?.sort((a, b) =>
-    a.updatedAt > b.releaseDate ? -1 : b.releaseDate > a.releaseDate ? 1 : 0
+    a.releaseDate > b.releaseDate ? -1 : b.releaseDate > a.releaseDate ? 1 : 0
   );
   console.log(setsObject.data);
 

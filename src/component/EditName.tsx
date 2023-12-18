@@ -20,8 +20,8 @@ const EditName = ({
   const [name, setName] = useState("");
   const [isShow, setIsShow] = useState(false);
   const setObject = useSet(setId);
-  const set = setObject.data;
-  console.log(setObject.data);
+  const set = setObject?.data;
+  console.log(setObject?.data);
 
   const mutation = useUpdateSetName(set);
 

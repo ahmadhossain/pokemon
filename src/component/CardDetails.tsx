@@ -20,7 +20,7 @@ const CardDetails = ({
   setId: string | undefined;
 }) => {
   const setObject = useSet(setId as string);
-  const set = setObject.data;
+  const set = setObject?.data;
 
   const { addItem } = useCart();
 

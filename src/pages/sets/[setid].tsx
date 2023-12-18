@@ -9,6 +9,9 @@ import edit from "../../../public/edit.png";
 import EditName from "@/component/EditName";
 import { useCart } from "@/Hooks/useCart";
 import { useSet } from "@/Hooks/reactQuery";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
+import { QueryKeys } from "@/Enums";
+import { useRouter } from "next/router";
 
 export const getStaticPaths: GetStaticPaths = async (qry) => {
   const sets = await getAllSets();
@@ -30,33 +33,31 @@ export const getStaticPaths: GetStaticPaths = async (qry) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  let card = {};
-  try {
-    const id = context.params?.setid as string;
-    card = await getSet(id);
-  } catch (e) {
-    if (Object.keys(card).length === 0) {
-      return {
-        props: { card: {} },
-        revalidate: 10,
-      };
-    }
-  }
+  const queryClient = new QueryClient();
+  const id = context.params?.setid as string;
 
-  return {
-    props: { card },
-    revalidate: 10,
-  };
+  await queryClient.prefetchQuery({
+    queryKey: [QueryKeys.CardSet],
+    queryFn: async () => {
+      let card = {};
+      try {
+        card = await getSet(id);
+      } catch (err) {}
+      return card;
+    },
+  });
+
+  return { props: { dehydratedState: dehydrate(queryClient) } };
 };
 
-const PokemonSet = ({ card }: { card: Set }) => {
+const PokemonSet = () => {
   const [open, setOpen] = useState(false);
   const { addItem } = useCart();
 
-  let setObject;
-  if (card?.id) {
-    setObject = useSet(card.id as string);
-  }
+  const router = useRouter();
+  const id = router.query?.setid as string;
+
+  const setObject = useSet(id);
 
   const set = setObject?.data;
 
@@ -64,10 +65,7 @@ const PokemonSet = ({ card }: { card: Set }) => {
 
   const handleOpen = () => setOpen(!open);
 
-  let err = false;
-  if (card && Object.keys(card).length === 0) err = true;
-
-  if (err)
+  if (set && Array.isArray(set))
     return (
       <p className="h-[556px] text-cyan-400 text-center text-xl mt-20">
         Card not found!
