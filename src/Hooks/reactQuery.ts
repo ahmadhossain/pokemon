@@ -30,6 +30,7 @@ export const useSet = (setId: string) => {
     refetchOnWindowFocus: true,
     refetchOnMount: true,
     enabled: true,
+    retry: 1,
   });
 };
 

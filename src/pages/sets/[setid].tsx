@@ -64,16 +64,20 @@ const PokemonSet = () => {
   const id = router.query?.setid as string;
   console.log(id, "id");
 
-  const setObject = useSet(id);
+  const { data: set, isPending, isError } = useSet(id);
 
-  const set = setObject?.data;
-
-  console.log(set, "set");
-  console.log(setObject, "setObject");
+  console.log(set, "set data");
 
   const handleOpen = () => setOpen(!open);
 
-  if (setObject.isError)
+  if (isPending)
+    return (
+      <div className="h-[calc(100vh-59px)] text-center text-cyan-400 text-2xl mt-20">
+        Loading...
+      </div>
+    );
+
+  if (isError)
     return (
       <p className="h-[556px] text-cyan-400 text-center text-xl mt-20">
         Card not found!
@@ -88,7 +92,7 @@ const PokemonSet = () => {
           handleOpen={handleOpen}
         />
       )}
-      {set?.id ? (
+      {set && (
         <div className="h-[calc(100vh-184px)]">
           <div className="text-center max-w-fit border border-gray-400 rounded-lg py-7 px-6 my-20 mx-auto">
             <div className="max-w-[200px] mx-auto">
@@ -117,10 +121,6 @@ const PokemonSet = () => {
               <span>Add to Cart</span>
             </Button>
           </div>
-        </div>
-      ) : (
-        <div className="h-[calc(100vh-59px)] text-center text-cyan-400 text-2xl mt-20">
-          Loading...
         </div>
       )}
     </>
